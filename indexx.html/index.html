@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MERRY CHRISTMAS BAHOOOOOOO 🎄🎁</title>
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<style>
+/* ------------------- BACKGROUND ---------------------- */
+body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("images.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,0.4);
+    background-blend-mode: darken;
+    flex-direction: column;
+}
+body::before, body::after {
+    content: "";
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    background-repeat: repeat;
+    z-index:3;
+}
+body::before {
+    background-image: url("BG.jpg");
+    animation: heavySnow 12s linear infinite;
+    opacity: 0.85;
+}
+body::after {
+    background-image: url("BG.jpg");
+    animation: heavySnow 20s linear infinite;
+    opacity: 0.5;
+}
+@keyframes heavySnow {
+     from { background-position: 0 -200px; } 
+     to { background-position: 0 2000px; } 
+    }
+
+.lights {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background: url("BOOM.avif");
+    background-size: contain;
+    animation: blink 1.2s infinite;
+    z-index: 2000;
+}
+@keyframes blink {
+     0% { filter: brightness(10); } 
+     50% { filter: brightness(2); } 
+     100% { filter: brightness(10); } 
+    }
+
+#reindeer {
+    position: fixed;
+    width: 250px;
+    bottom: 10%;
+    left: -300px;
+    animation: reindeerRun 12s linear infinite;
+    z-index: 3000;
+}
+@keyframes reindeerRun { from { left: -300px; bottom: 10%; }
+                           to { left: 120%; bottom: 15%; }
+                         }
+
+#cookies {
+    position: fixed;
+    width: 180px;
+    right: -200px;
+    bottom: 0;
+    animation: cookiesSlide 15s ease-in-out infinite;
+    z-index: 3000;
+}
+@keyframes cookiesSlide { 
+0% { right: -250px; transform: rotate(0deg); } 
+50% { right: 20px; transform: rotate(10deg); } 
+100% { right: -250px; transform: rotate(0deg); }
+ }
+
+#centerContent { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    z-index: 10; 
+}
+
+h1 {
+    font-size: 2.6rem;
+    color: #fff7e6;
+    text-shadow: 3px 3px #730000;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#buttons {
+     margin-bottom: 20px; }
+button { 
+    padding: 15px 30px; 
+    font-size: 1.4rem; border-radius: 10px; 
+    border: none;
+    cursor: pointer; 
+    margin: 0 10px;
+ }
+#yesBtn { 
+    background: #0fa33b; 
+    color: white;
+ }
+#noBtn {
+     background: #333; 
+     color: white;
+     }
+
+#reasonBox { 
+    color: #ffe9ba; 
+    font-size: 1.3rem; 
+    margin-top: 15px; 
+    text-align: center;
+ }
+
+#envelope {
+     display: none; 
+     width: 300px; 
+     height: 200px; 
+     perspective: 1000px; 
+     margin-top: 20px; 
+     cursor: pointer; 
+     position: relative;
+     }
+
+#envelopeInner { 
+    width: 100%; 
+    height: 100%; 
+    position: relative; 
+    transform-style: preserve-3d; 
+    transition: all 1s ease;
+ }
+#boxBottom {
+     width: 100%; 
+     height: 100%; 
+     background: #ff2626; 
+     border: 5px solid #a00000; 
+     border-radius: 10px; 
+     position: absolute; 
+     top: 0; left: 0; 
+     box-shadow: 0 15px 25px rgba(0,0,0,0.4); 
+     transform-origin: bottom; 
+    }
+#boxTop {
+    width: 100%; 
+    height: 50%; 
+    background: #ff4c4c; 
+    border-bottom: 5px solid #a00000; 
+    border-radius: 10px 10px 0 0; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    transform-origin: top; 
+    transition: transform 1s ease;
+     }
+#ribbonV, #ribbonH { 
+    position: absolute; 
+    background: #ffd700; 
+    z-index: 2; 
+}
+#ribbonV { 
+    width: 40px; 
+    height: 100%; 
+    left: 50%; 
+    top: 0; 
+    transform: translateX(-50%);
+ }
+#ribbonH {
+    width: 100%; 
+    height: 40px;
+    top: 50%; 
+    left: 0;
+    transform: translateY(-50%); 
+    }
+#bow { 
+    position: absolute; 
+    top: -30px; left: 50%; 
+    transform: translateX(-50%); 
+    width: 120px;
+    z-index: 3;
+    }
+#envelope.open #boxTop {
+     transform: rotateX(-120deg);
+     }
+#envelope.open #envelopeInner { 
+    transform: rotateY(10deg) rotateX(-5deg); 
+}
+
+#loveLetter { 
+    display: none; 
+    position: fixed; 
+    top: 50%; left: 50%; 
+    width: 380px;
+    max-height: 80vh; 
+    background: #fff3db;
+    padding: 25px; 
+    border-radius: 15px; 
+    border: 4px solid #a80000; 
+    box-shadow: 0 0 30px rgba(255,200,150,0.7);
+    text-align: center;
+    z-index: 9999; 
+    animation: flipIn 0.6s forwards; 
+    transform-style: preserve-3d; 
+    backface-visibility: hidden; 
+    }
+@keyframes flipIn { 
+    from { transform: translate(-50%, -50%) rotateY(90deg); 
+        opacity: 0; 
+    } 
+    to { transform: translate(-50%, -50%) rotateY(0deg); 
+        opacity: 1;
+     }
+     }
+#loveLetter img { 
+    width: 230px; 
+    margin: 15px 0; 
+    border-radius: 10px;
+ }
+#closeBtn { 
+    background: #c10000;
+     color: white; 
+     padding: 10px 20px; 
+     border-radius: 8px; 
+     cursor: pointer;
+      margin-top: 15px;
+     }
+
+.dancingCat { 
+    position: absolute; 
+    width: 100px; 
+    pointer-events:none; 
+    z-index:6000; 
+    transition: transform 0.3s ease; 
+    }
+</style>
+</head>
+
+<body>
+
+<div class="lights"></div>
+<img id="reindeer" src="400w.webp">
+<img id="cookies" src="300w.webp">
+
+<div id="centerContent">
+    <h1 id="mainText">MABAHO KA PAG PININDOT MO YES TOL!🎄💖</h1>
+
+    <div id="buttons">
+        <button id="yesBtn">YES 🎅</button>
+        <button id="noBtn">NO 😤</button>
+    </div>
+
+    <div id="reasonBox"></div>
+
+    <div id="envelope">
+        <div id="envelopeInner">
+            <div id="boxBottom"></div>
+            <div id="boxTop"></div>
+            <div id="ribbonV"></div>
+            <div id="ribbonH"></div>
+            <img id="bow" src="727972.png" alt="bow">
+        </div>
+    </div>
+</div>
+
+<div id="loveLetter">
+    <h2>MERRY CHRISTMAS BAHOOOOO!🎄</h2>
+    <p>You're the person I really did not expect to come into my life, but nonetheless, I'm so happy that I met you and that you became my friend. You showed up in my life so quietly, yet somehow, you ended up meaning so much. I didn’t see it coming — someone like you is the kind of person people are lucky to stumble upon.
+
+Whatever it is, I'm grateful. I'm grateful for fate, timing, or whatever it was that led me to you.
+
+And honestly? I hope we don’t stop here. I hope we keep making memories, keep laughing, and keep being there for each other — because someone like you doesn’t come twice.
+
+You’re rare. You’re special. And I’m thankful every day that our paths crossed. 
+
+MERRRRRRRRRY CHRISTMASSSSSSSSSS BAHOOOOOOOOOO!
+</p>
+    <img src="200w.webp">
+    <button id="closeBtn">Close</button>
+</div>
+
+<!-- Audio -->
+<audio id="bgm" autoplay loop>
+    <source src="christmas-holiday-festive-cheer-snow-427231.mp3" type="audio/mp3">
+</audio>
+<audio id="giftAudio">
+    <source src="MEME.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const envelope = document.getElementById("envelope");
+const loveLetter = document.getElementById("loveLetter");
+const reasonBox = document.getElementById("reasonBox");
+const closeBtn = document.getElementById("closeBtn");
+const mainText = document.getElementById("mainText");
+
+let noCount = 0;
+const reasons = [
+    "KULIT NAG NO PA TALAGA 😤🎄",
+    "LAH NAG NOOO PA TALAGA SIYA HAHAAHA 😭",
+    "SABI NG MABAHO KA TOL TANGGAPIN MO NA😭",
+    "HAHAHAHAH LALA😤",
+    "WALA TO GUYS WALA KANG CHOICE BOI 😤"
+];
+
+const dancingGIFs = ["twerk.webp","santa.webp","baliw.webp","HAHA.webp","twerk.webp"];
+
+function createRandomDancingGIF() {
+    const gif = document.createElement("img");
+    const src = dancingGIFs[Math.floor(Math.random()*dancingGIFs.length)];
+    gif.src = src;
+    gif.className = "dancingCat";
+    gif.style.left = Math.random()*(window.innerWidth-100)+"px";
+    gif.style.top = Math.random()*(window.innerHeight-100)+"px";
+    document.body.appendChild(gif);
+    let drift = 1;
+    const interval = setInterval(()=>{ gif.style.transform=`translateY(${drift*10}px)`; drift*=-1; },500);
+    setTimeout(()=>{ clearInterval(interval); gif.remove(); },4000);
+}
+
+const dancingInterval = setInterval(()=>{
+    if(envelope.style.display==="block"){ clearInterval(dancingInterval); }
+    else{ createRandomDancingGIF(); }
+},1200);
+
+noBtn.addEventListener("click", ()=>{
+    noCount++;
+    reasonBox.innerText = reasons[noCount-1] || "ENOUGH! MERRY CHRISTMAS NA 😤🎄";
+    let size = parseInt(window.getComputedStyle(yesBtn).fontSize);
+    yesBtn.style.fontSize = (size+100)+"px";
+    if(noCount>5) noBtn.style.display="none";
+});
+
+yesBtn.addEventListener("click", ()=>{
+    mainText.innerText = "TANGINA TAMIS NIYAN LOT";
+
+    document.getElementById("buttons").style.display = "none";
+    reasonBox.style.display = "none";
+
+    // Pause first audio
+    const bgm = document.getElementById("bgm");
+    bgm.pause();
+
+    envelope.style.display = "block";
+});
+
+envelope.addEventListener("click", ()=>{
+    envelope.classList.add("open");
+
+    // Play gift audio
+    const giftAudio = document.getElementById("giftAudio");
+    giftAudio.currentTime=0;
+    giftAudio.play();
+
+    setTimeout(()=>{
+        loveLetter.style.display="block";
+
+        confetti({particleCount:200, spread:90, origin:{y:0.6}, colors:['#ff0000','#ffffff','#0fa33b','#ffd700']});
+
+        for(let i=0;i<25;i++){
+            const cat=document.createElement("img");
+            cat.src="cat-tongue-cat.webp";
+            cat.className="dancingCat";
+            cat.style.left=Math.random()*(window.innerWidth-150)+"px";
+            cat.style.top=Math.random()*(window.innerHeight-150)+"px";
+            document.body.appendChild(cat);
+            let drift=1;
+            setInterval(()=>{ cat.style.transform=`translateY(${drift*12}px)`; drift*=-1; },500);
+        }
+    },1000);
+});
+
+closeBtn.addEventListener("click", ()=>{ loveLetter.style.display="none"; });
+</script>
+
+</body>
+</html>
